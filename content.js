@@ -111,6 +111,10 @@ function openChatboxHandler() {
     apiKeyInput.style.borderRadius = "4px";
     apiKeyInput.style.marginBottom = "10px";
 
+    const buttonContainer = document.createElement("div");
+    buttonContainer.style.display = "flex";
+    buttonContainer.style.gap = "10px";
+
     const submitButton = document.createElement("button");
     submitButton.textContent = "Submit";
     submitButton.style.padding = "10px 20px";
@@ -136,8 +140,26 @@ function openChatboxHandler() {
         createChatbox(enteredAPIKey); // Pass the API key to the chatbox
     });
 
+    //Creating cancel button of the input box
+    const cancelButton = document.createElement("button");
+    cancelButton.textContent = "Cancel";
+    cancelButton.style.padding = "10px 20px";
+    cancelButton.style.backgroundColor = "#FF4D4D";
+    cancelButton.style.color = "white";
+    cancelButton.style.border = "none";
+    cancelButton.style.borderRadius = "4px";
+    cancelButton.style.cursor = "pointer";
+
+    cancelButton.addEventListener("click", () => {
+        apiKeyContainer.remove();
+        console.log("API key input canceled.");
+    })
+    
+    buttonContainer.appendChild(submitButton);
+    buttonContainer.appendChild(cancelButton);
+
     apiKeyContainer.appendChild(apiKeyInput);
-    apiKeyContainer.appendChild(submitButton);
+    apiKeyContainer.appendChild(buttonContainer);
     document.body.appendChild(apiKeyContainer);
 }
 
@@ -146,6 +168,7 @@ function openChatboxHandler() {
 function createChatbox(apiKey) {
     const azProblemUrl = window.location.href;
     const uniqueID = extractUniqueID(azProblemUrl);
+    const problemID = getNumberAtEnd(uniqueID);
     // const problemName = document.getElementsByClassName("Header_resource_heading__cpRp1");
     // const problemDescription = document.getElementsByClassName("coding_desc__pltWY ");
 
@@ -324,6 +347,11 @@ const extractUniqueID = (url) => {
     const end = url.indexOf("?", start); // Find the end position
     return end !== -1 ? url.substring(start, end) : url.substring(start); // Extract portion
 };
+
+function getNumberAtEnd(str) {
+    const match = str.match(/(\d+)$/); // Matches one or more digits at the end of the string
+    return match ? parseInt(match[0], 10) : null; // Returns the number or null if no match
+}
 
 function getCurrentChats() {
     chrome.storage.sync.get([AZ_PROBLEM_KEY])
