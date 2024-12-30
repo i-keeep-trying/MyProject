@@ -169,6 +169,10 @@ function createChatbox(apiKey) {
     const azProblemUrl = window.location.href;
     const uniqueID = extractUniqueID(azProblemUrl);
     const problemID = getNumberAtEnd(uniqueID);
+    const userLang = localStorage.getItem("editor-language");
+    const userCode = getDataFromLocalStorage(problemID, userLang);
+    console.log(userCode);
+
     // const problemName = document.getElementsByClassName("Header_resource_heading__cpRp1");
     // const problemDescription = document.getElementsByClassName("coding_desc__pltWY ");
 
@@ -352,6 +356,43 @@ function getNumberAtEnd(str) {
     const match = str.match(/(\d+)$/); // Matches one or more digits at the end of the string
     return match ? parseInt(match[0], 10) : null; // Returns the number or null if no match
 }
+
+function getDataFromLocalStorage(problemID, userLang) {
+    console.log(problemID);
+    console.log(userLang);
+
+    const prefix = "course_";
+    console.log(prefix);
+
+    // Remove extra quotes from userLang, if present
+    if (userLang.startsWith('"') && userLang.endsWith('"')) {
+        userLang = userLang.slice(1, -1);
+    }
+    console.log(userLang);
+
+    const suffix = `_${problemID}_${userLang}`; // Construct the correct suffix
+    console.log(suffix);
+    
+    let matchedKey = null;
+
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        
+        if (key.startsWith(prefix) && key.endsWith(suffix)) {
+            matchedKey = key;
+            break; // Stop the loop as there is only one matching key
+        }
+    }
+
+    if (matchedKey) {
+        console.log(matchedKey);
+        return localStorage.getItem(matchedKey); // Retrieve and return the data
+    } else {
+        console.warn("No matching key found in localStorage.");
+        return null;
+    }
+}
+
 
 function getCurrentChats() {
     chrome.storage.sync.get([AZ_PROBLEM_KEY])
