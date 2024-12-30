@@ -1,41 +1,9 @@
-# Chrome-Extension-Base-Template
-This is a basic Chrome Extension base template for starting new projects off of initialized with a MIT license.
+This is an AI Assistant Bot google extention which can point out your mistakes you made so that you can learn from them.
 
-## Features
-- ..
-- ..
-- ..
-
-## Author
-First Last
-- [Author Website]()
-- [Author Github]()
-- [Project Repository]()
-
-## Requirements
-### Knowledge
-- HTML
-- CSS
-- Javascript
-- Chrome API
-### Tools
-- Google Chrome Browser
-- IDE or Text Editor of Your Choice
-
-## Setup Instructions
-### For Developers
-1. Make a clone of this project, unzipped.
-2. Open Chrome Browser
-3. In a new or blank tab, type in "chrome://extensions/" (without the quotes of course) and click [Enter].
-4. At the top right corner of the page, **enable** "Developer Mode"
-5. Click the button on the page that says "Load Unpacked"
-6. Navigate to your unzipped project folder and select that and hit OK.
-7. You are now ready to start working on the extension! Just make sure you reload after each change you make to see the changes take place.
-
-### For End Users
-1. ...
-2. ...
-3. ...
-
-## License
-Please refer to LICENSE file.
+Features:
+  It adds a button.
+  On clicking the button you will get a popup asking for API key
+  On entering API key a chatbox will open where you can communicate with an AI API.
+  The AI is trained such that it only says things regarding to the topic and never goes off-topic.
+  The AI is equipped with the code of the user and the problem description so it can help in any way possible.
+  The AI is also equipped with the hints and solution code of the problem so that it can guide the user in a better way.
