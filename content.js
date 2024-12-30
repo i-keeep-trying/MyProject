@@ -340,7 +340,8 @@ function createChatbox(apiKey) {
             Hints of the problem: ${hints}\
             You should give the solution in ${userLang} unless user tell you to change the language later\
             But you will not give the solution directly. You will follow the following steps:\
-            1. Evaluate the User Code: ${userCode}\
+            1. Evaluate the User Code by comparing it with the Solution of the problem.\
+            User Code:  ${userCode}\
             2. Find where is the mistake in the user code and give hints about it and try to guide the user towards the correct solution.\
             3. If the user asks directly for the solution, don't just directly write the solution. Instead first point out the mistakes\
                 in user's code so that they can learn from it and only then give them the solution.\
