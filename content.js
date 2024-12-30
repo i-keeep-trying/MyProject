@@ -38,6 +38,31 @@ function observePageChange() {
 
 setInterval(observePageChange, 500);
 
+addInjectScript();
+
+const problemDataMap = new Map();
+
+window.addEventListener("xhrDataFetched", (event) => {
+    const data = event.detail;
+    console.log("Data recieved in content.js", data);
+
+    if(data.url && data.url.match(/https:\/\/api2\.maang\.in\/problems\/usser\/\d+/)) {
+        const idMatch = data.url.match(/\/(\d+)$/);
+        if(idMatch) {
+            const id = idMatch[1];
+            problemDataMap.set(id, data.response);
+            console.log(`Stored data for problem ID ${id}:`, data.response);
+        }
+    }
+})
+
+function addInjectScript() {
+    const script = document.createElement("script");
+    script.src = chrome.runtime.getURL("inject.js");
+    script.onload = () => script.remove();
+    document.documentElement.appendChild(script);
+}
+
 function addAIAssistantButton() {
     console.log("adding button");
     const AIAssistantButton = document.createElement('img');
